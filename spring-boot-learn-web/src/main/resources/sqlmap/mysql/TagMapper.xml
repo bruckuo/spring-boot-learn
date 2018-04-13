@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bear.spring.boot.web.mapper.TagMapper">
+	<resultMap id="TagMap" type="com.bear.spring.boot.web.domain.entity.TagEntity">
+		<result column="id" property="id" jdbcType="BIGINT" javaType="java.lang.Long"/>
+		<result column="tag" property="tag" jdbcType="VARCHAR" javaType="String"/>
+		<result column="tag_time_no" property="tagTimeNo" jdbcType="VARCHAR" javaType="String"/>
+		<result column="cluster_env" property="clusterEnv" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="status" property="status" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="source" property="source" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="tag_type" property="tagType" jdbcType="TINYINT" javaType="Integer"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+	</resultMap>
+    
+    <sql id="select-all-column">
+		SELECT
+			id,
+			tag,
+			tag_time_no,
+			cluster_env,
+			status,
+			source,
+			tag_type ,
+			create_time,
+			update_time
+		FROM tag
+	</sql>
+	
+	<sql id="where-all-condition">
+		1=1
+		<if test="id != null">
+			and id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="tag != null and tag != ''">
+			and tag = #{tag,jdbcType=VARCHAR}
+		</if>
+		<if test="tagTimeNo != null and tagTimeNo != ''">
+			and tag_time_no = #{tagTimeNo,jdbcType=VARCHAR}
+		</if>
+		<if test="clusterEnv != null">
+			and cluster_env = #{clusterEnv,jdbcType=TINYINT}
+		</if>
+		<if test="status != null">
+			and status = #{status,jdbcType=TINYINT}
+		</if>
+		<if test="source != null">
+			and source = #{source,jdbcType=TINYINT}
+		</if>
+		<if test="tagType != null">
+			and tag_type = #{tagType,jdbcType=TINYINT}
+		</if>
+		<if test="createTime != null">
+			and create_time = #{createTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="updateTime != null">
+			and update_time = #{updateTime,jdbcType=TIMESTAMP}
+		</if>
+	</sql>
+	
+	<select id="selectTag" parameterType="com.bear.spring.boot.web.domain.criteria.TagCriteria" resultMap="TagMap">
+		<include refid="select-all-column"/>
+		<where>
+		<include refid="where-all-condition"/>
+		<include refid="commonRoadMapper.sortSql"/>
+		<include refid="commonRoadMapper.pagingLimit"/>
+		</where>
+	</select>
+	
+	<select id="selectOneTag" parameterType="java.lang.Long" resultMap="TagMap">
+		<include refid="select-all-column"/>
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="countTag" parameterType="com.bear.spring.boot.web.domain.criteria.TagCriteria" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM tag
+		<where>
+		<include refid="where-all-condition"/>
+		</where>
+	</select>
+	
+	<insert id="insertTag" parameterType="com.bear.spring.boot.web.domain.entity.TagEntity" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO tag (
+	<if test="tag != null">
+		tag,
+	</if>
+	<if test="tagTimeNo != null">
+		tag_time_no,
+	</if>
+	<if test="clusterEnv != null">
+		cluster_env,
+	</if>
+	<if test="status != null">
+		status,
+	</if>
+	<if test="source != null">
+		source,
+	</if>
+	<if test="tagType != null">
+		tag_type,
+	</if>
+		create_time,
+		update_time
+	) VALUES (
+    <if test="tag != null">
+    	#{tag,jdbcType=VARCHAR},
+    </if>
+    <if test="tagTimeNo != null">
+    	#{tagTimeNo,jdbcType=VARCHAR},
+    </if>
+    <if test="clusterEnv != null">
+    	#{clusterEnv,jdbcType=TINYINT},
+    </if>
+    <if test="status != null">
+    	#{status,jdbcType=TINYINT},
+    </if>
+    <if test="source != null">
+    	#{source,jdbcType=TINYINT},
+    </if>
+    <if test="tagType != null">
+    	#{tagType,jdbcType=TINYINT},
+    </if>
+		now(),
+		now()
+	)
+	</insert>
+	
+	<insert id="insertTagBatch" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+	<selectKey resultType="long" keyProperty="id" order="AFTER">
+		SELECT
+		LAST_INSERT_ID()
+	</selectKey>
+	INSERT INTO tag (
+		tag,
+		tag_time_no,
+		cluster_env,
+		status,
+		source,
+		tag_type,
+		create_time,
+		update_time
+	) VALUES
+	<foreach collection="list" item="item" index="index" separator=",">
+    (
+		#{item.tag,jdbcType=VARCHAR},
+		#{item.tagTimeNo,jdbcType=VARCHAR},
+		#{item.clusterEnv,jdbcType=TINYINT},
+		#{item.status,jdbcType=TINYINT},
+		#{item.source,jdbcType=TINYINT},
+		#{item.tagType,jdbcType=TINYINT},
+		now(),
+		now()
+			)
+	</foreach>
+	</insert>
+	
+	<update id="updateTag" parameterType="java.util.Map">
+		UPDATE tag
+		<set>
+    	<if test="tag != null">
+            tag = #{tag,jdbcType=VARCHAR},
+    	</if>
+    	<if test="tagTimeNo != null">
+            tag_time_no = #{tagTimeNo,jdbcType=VARCHAR},
+    	</if>
+    	<if test="clusterEnv != null">
+            cluster_env = #{clusterEnv,jdbcType=TINYINT},
+    	</if>
+    	<if test="status != null">
+            status = #{status,jdbcType=TINYINT},
+    	</if>
+    	<if test="source != null">
+            source = #{source,jdbcType=TINYINT},
+    	</if>
+    	<if test="tagType != null">
+            tag_type = #{tagType,jdbcType=TINYINT},
+    	</if>
+    	<if test="createTime != null">
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+    	</if>
+        update_time =now()
+		</set>
+		WHERE 
+		id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<update id="updateTagBatch"  parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+		update tag
+		<set>
+		<if test="item.tag != null">
+			tag = #{item.tag,jdbcType=VARCHAR},
+		</if>
+		<if test="item.tagTimeNo != null">
+			tag_time_no = #{item.tagTimeNo,jdbcType=VARCHAR},
+		</if>
+		<if test="item.clusterEnv != null">
+			cluster_env = #{item.clusterEnv,jdbcType=TINYINT},
+		</if>
+		<if test="item.status != null">
+			status = #{item.status,jdbcType=TINYINT},
+		</if>
+		<if test="item.source != null">
+			source = #{item.source,jdbcType=TINYINT},
+		</if>
+		<if test="item.tagType != null">
+			tag_type = #{item.tagType,jdbcType=TINYINT},
+		</if>
+		<if test="item.createTime != null">
+			create_time = #{item.createTime,jdbcType=TIMESTAMP},
+		</if>
+		update_time =now()
+		</set>
+		WHERE 
+		id = #{item.id,jdbcType=BIGINT}
+
+	</foreach>
+	</update>
+	
+	<delete id="deleteTag" parameterType="com.bear.spring.boot.web.domain.criteria.TagCriteria">
+		DELETE FROM tag
+		WHERE 
+		<include refid="where-all-condition"/>
+	</delete>
+	
+	<delete id="deleteOneTag" parameterType="java.lang.Long">
+		DELETE FROM tag
+		WHERE
+		id = #{id,jdbcType=BIGINT}
+	</delete>
+</mapper>

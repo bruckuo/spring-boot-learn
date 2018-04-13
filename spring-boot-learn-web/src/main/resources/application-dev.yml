@@ -1,0 +1,34 @@
+#spring
+spring:
+#datasource
+  datasource:
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:MySql://127.0.0.1:3306/spring-boot-learn?characterEncoding=UTF-8&amp;allowMultiQueries=true
+    name: spring-boot-learn
+    # druid
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      filters: stat
+      maxActive: 20
+      initialSize: 3
+      maxWait: 60000
+      minIdle: 1
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+  messages:
+    encoding: UTF-8
+
+##日志输出格式
+logging:
+  config: classpath:spring/logback-spring.xml
+  level: info
+  path: /Users/didi/Desktop/log
+

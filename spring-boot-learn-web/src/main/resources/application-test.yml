@@ -1,0 +1,31 @@
+#spring \u6570\u636E\u6E90\u914D\u7F6E
+spring:
+#datasource \u8FDE\u63A5\u6C60\u7684\u914D\u7F6E\u4FE1\u606F
+  datasource:
+    username: root
+    password: 123
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:MySql:///spring-boot-learn?characterEncoding=UTF-8&amp;allowMultiQueries=true
+    name: spring-boot-learn
+    # druid \u9A71\u52A8\u914D\u7F6E\u4FE1\u606F
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+        filters: stat
+        maxActive: 20
+        initialSize: 3
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+  messages:
+    encoding: UTF-8
+
+##日志输出格式
+logging:
+  config: classpath:spring/logback-spring.xml

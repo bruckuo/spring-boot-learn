@@ -1,0 +1,9 @@
+# Created by .ignore support plugin (hsz.mobi)
+/target/*
+LOG_PATH_IS_UNDEFINED
+.idea
+*.iml
+xyy-tuangou-manager.iml
+target
+test
+generatorConfig.xml

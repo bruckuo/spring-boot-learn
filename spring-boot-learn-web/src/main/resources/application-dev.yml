@@ -5,7 +5,7 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:MySql://127.0.0.1:3306/spring-boot-learn?characterEncoding=UTF-8&amp;allowMultiQueries=true
+    url: jdbc:MySql://127.0.0.1:3306/spring_boot_learn?characterEncoding=UTF-8&amp;allowMultiQueries=true
     name: spring-boot-learn
     # druid
     type: com.alibaba.druid.pool.DruidDataSource
@@ -29,6 +29,6 @@ spring:
 ##日志输出格式
 logging:
   config: classpath:spring/logback-spring.xml
-  level: info
-  path: /Users/didi/Desktop/log
+  level: debug
+  path: /Users/jiangdongxue/Desktop/xyy
 

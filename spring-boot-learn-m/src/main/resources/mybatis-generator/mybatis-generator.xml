@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <properties resource="mybatis-generator/generatorConfig.properties"/>
+    <context id="bTables" targetRuntime="MyBatis3">
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--数据库链接URL，用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="${mysql.jdbc.connectionURL}" userId="${mysql.jdbc.userId}"
+                        password="${mysql.jdbc.password}">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 生成模型的包名和位置 -->
+        <javaModelGenerator targetPackage="${module.targetPackage}" targetProject="${module.targetProject}">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- 生成映射文件的包名和位置 -->
+        <sqlMapGenerator targetPackage="${map.targetPackage}"  targetProject="${map.targetProject}">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 生成DAO的包名和位置 -->
+        <javaClientGenerator type="com.xxx.baobab.tools.mybatis.generator.EmptyContentWithRootInterfaceJavaClientGenerator"
+                             targetPackage="${client.targetPackage}" targetProject="${client.targetProject}">
+            <property name="enableSubPackages" value="true"/>
+            <property name="rootInterface" value="com.xxx.baobab.framework.dao.MybatisAuditableBaseMapper"/>
+        </javaClientGenerator>
+
+        <!-- 要生成哪些表 -->
+        <table tableName="tag" domainObjectName="PickAreaPolicy">
+            <property name="rootClass" value="com.xxx.AbstractAuditable"/>
+            <generatedKey column="id" sqlStatement="JDBC"/>
+            <columnOverride column="istatus" property="istatus" javaType="com.XXX.statusEnum"/>
+            <columnOverride column="policy_type" property="policyType" javaType="com.XXX.PolicyTypeEnum"/>
+        </table>
+    </context>
+</generatorConfiguration>

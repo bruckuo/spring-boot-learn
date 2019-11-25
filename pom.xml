@@ -8,6 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<modules>
 		<module>spring-boot-learn-web</module>
+		<module>spring-boot-learn-m</module>
 	</modules>
 	<packaging>pom</packaging>
 
@@ -64,6 +65,13 @@
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>${guava.version}</version>
+			</dependency>
+
+			<!-- mysql自动生成实体类-->
+			<dependency>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-core</artifactId>
+				<version>1.3.5</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

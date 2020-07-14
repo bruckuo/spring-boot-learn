@@ -1,10 +1,8 @@
 package com.bear.spring.boot.web.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -49,9 +47,9 @@ public class DruidConfiguration {
     /**
      * 数据源
      */
-    @Bean(name = "dataSource")
-    @Primary
-    public DataSource dataSource() {
+        @Bean(name = "dataSource")
+        @Primary
+        public DataSource dataSource() {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setUrl(dbUrl);
         dataSource.setUsername(username);

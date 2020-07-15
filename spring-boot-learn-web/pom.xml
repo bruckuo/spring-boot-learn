@@ -86,6 +86,18 @@
             <artifactId>guava</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.statemachine</groupId>
+            <artifactId>spring-statemachine-core</artifactId>
+            <version>${spring-statemachine-core.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
